@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import FilterOptions from '@/components/FilterOptions';
 import CharacterList from '@/components/CharacterList';
 
@@ -24,26 +23,16 @@ export default function Page({ searchParams }: PageProps): JSX.Element {
       </h1>
 
       {/* Client-side Filter Options Component */}
-      <FilterOptions
-        initialStatus={status}
-        initialGender={gender}
-        initialSpecies={species}
-      />
+      <FilterOptions initialStatus={status} initialGender={gender} initialSpecies={species} />
 
       {/* Show active filters */}
       {(status || gender || species) && (
         <div className="mb-6 p-3 bg-gray-50 rounded-md shadow-sm">
           <p className="text-sm text-gray-600">
             Active filters:
-            {status && (
-              <span className="ml-2 font-medium">Status: {status}</span>
-            )}
-            {gender && (
-              <span className="ml-2 font-medium">Gender: {gender}</span>
-            )}
-            {species && (
-              <span className="ml-2 font-medium">Species: {species}</span>
-            )}
+            {status && <span className="ml-2 font-medium">Status: {status}</span>}
+            {gender && <span className="ml-2 font-medium">Gender: {gender}</span>}
+            {species && <span className="ml-2 font-medium">Species: {species}</span>}
           </p>
         </div>
       )}

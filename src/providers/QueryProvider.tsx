@@ -1,30 +1,10 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 
-interface QueryProviderProps {
-  children: ReactNode;
-}
+const queryClient = new QueryClient();
 
-export function QueryProviderWrapper({ children }: QueryProviderProps) {
-  // Create a client
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-            retry: 1,
-          },
-        },
-      })
-  );
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      {/* ReactQueryDevtools removed to fix linter error */}
-    </QueryClientProvider>
-  );
+export function QueryProvider({ children }: { children: ReactNode }): JSX.Element {
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }

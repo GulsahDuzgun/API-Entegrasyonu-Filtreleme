@@ -1,17 +1,12 @@
 'use client';
 
-import { useStore } from '@store/useStore';
-import { useCharacterDetails } from '@services/queries';
+import { useStore } from '@/store/useStore';
+import { useCharacterDetails } from '@/services/queries';
 import Image from 'next/image';
 
-export function CharacterDetail() {
-  const { isDetailModalOpen, currentCharacterId, closeDetailModal } =
-    useStore();
-  const {
-    data: character,
-    isLoading,
-    isError,
-  } = useCharacterDetails(currentCharacterId);
+export function CharacterDetail(): JSX.Element | null {
+  const { isDetailModalOpen, currentCharacterId, closeDetailModal } = useStore();
+  const { data: character, isLoading, isError } = useCharacterDetails(currentCharacterId);
 
   if (!isDetailModalOpen) return null;
 
@@ -20,10 +15,7 @@ export function CharacterDetail() {
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="p-4 border-b flex justify-between items-center">
           <h2 className="text-xl font-bold">Character Details</h2>
-          <button
-            onClick={closeDetailModal}
-            className="text-gray-500 hover:text-gray-700"
-          >
+          <button onClick={closeDetailModal} className="text-gray-500 hover:text-gray-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -54,10 +46,7 @@ export function CharacterDetail() {
               role="alert"
             >
               <strong className="font-bold">Error!</strong>
-              <span className="block sm:inline">
-                {' '}
-                Failed to load character details
-              </span>
+              <span className="block sm:inline"> Failed to load character details</span>
             </div>
           )}
 
@@ -72,9 +61,7 @@ export function CharacterDetail() {
                     className="object-cover rounded-full"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-center">
-                  {character.name}
-                </h3>
+                <h3 className="text-2xl font-bold text-center">{character.name}</h3>
               </div>
 
               <div className="space-y-4">
@@ -84,8 +71,8 @@ export function CharacterDetail() {
                       character.status === 'Alive'
                         ? 'bg-green-500'
                         : character.status === 'Dead'
-                        ? 'bg-red-500'
-                        : 'bg-gray-500'
+                          ? 'bg-red-500'
+                          : 'bg-gray-500'
                     }`}
                   ></span>
                   <span className="text-lg">

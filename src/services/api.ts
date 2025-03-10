@@ -59,9 +59,7 @@ export const fetchCharacters = async (
   if (gender) params.append('gender', gender);
 
   // Make the API request
-  const response = await fetch(
-    `${API_BASE_URL}/character?${params.toString()}`
-  );
+  const response = await fetch(`${API_BASE_URL}/character?${params.toString()}`);
 
   // Handle errors
   if (!response.ok) {

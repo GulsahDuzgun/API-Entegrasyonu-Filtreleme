@@ -1,0 +1,46 @@
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.outlined {
+  background-color: transparent;
+  border: 2px solid #e0e0e0;
+  box-shadow: none;
+}
+
+.elevated {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cardHeader {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 600;
+}
+
+.cardContent {
+  padding: 16px;
+}
+
+.cardFooter {
+  padding: 16px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { useStore } from '@store/useStore';
+import { useStore } from '@/store/useStore';
 
 const API_BASE_URL = 'https://rickandmortyapi.com/api';
 
@@ -54,34 +54,58 @@ const fetchCharacters = async (
   if (gender) params.append('gender', gender);
   if (species && species !== '') params.append('species', species);
 
-  const response = await axios.get<ApiResponse<Character>>(
-    `${API_BASE_URL}/character?${params.toString()}`
-  );
-
-  return response.data;
+  try {
+    const response = await axios.get<ApiResponse<Character>>(
+      `${API_BASE_URL}/character?${params.toString()}`
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      // Return empty results for 404 (no matches found)
+      return {
+        info: { count: 0, pages: 0, next: null, prev: null },
+        results: [],
+      };
+    }
+    throw error;
+  }
 };
 
 const fetchCharacterById = async (id: number): Promise<Character> => {
-  const response = await axios.get<Character>(
-    `${API_BASE_URL}/character/${id}`
-  );
+  const response = await axios.get<Character>(`${API_BASE_URL}/character/${id}`);
   return response.data;
 };
 
 // React Query hooks
-export const useCharacters = () => {
+export function useCharacters(): {
+  data: ApiResponse<Character> | undefined;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+} {
   const { name, status, gender, species, page } = useStore();
 
-  return useQuery<ApiResponse<Character>, Error>({
+  const result = useQuery({
     queryKey: ['characters', page, name, status, gender, species],
     queryFn: () => fetchCharacters(page, name, status, gender, species),
     staleTime: 5 * 60 * 1000, // 5 minutes
-    placeholderData: (previousData) => previousData, // Use this instead of keepPreviousData
   });
-};
 
-export const useCharacterDetails = (characterId: number | null) => {
-  return useQuery<Character, Error>({
+  return {
+    data: result.data,
+    isLoading: result.isLoading,
+    isError: result.isError,
+    error: result.error as Error | null,
+  };
+}
+
+export function useCharacterDetails(characterId: number | null): {
+  data: Character | undefined;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+} {
+  const result = useQuery({
     queryKey: ['character', characterId],
     queryFn: () => {
       if (!characterId) throw new Error('Character ID is required');
@@ -90,4 +114,11 @@ export const useCharacterDetails = (characterId: number | null) => {
     enabled: !!characterId,
     staleTime: 10 * 60 * 1000, // 10 minutes
   });
-};
+
+  return {
+    data: result.data,
+    isLoading: result.isLoading,
+    isError: result.isError,
+    error: result.error as Error | null,
+  };
+}

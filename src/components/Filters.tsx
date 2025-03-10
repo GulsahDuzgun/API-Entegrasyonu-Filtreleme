@@ -1,19 +1,10 @@
 'use client';
 
-import { useStore, Status, Gender, Species } from '@store/useStore';
+import { useStore, Status, Gender, Species } from '@/store/useStore';
 
-export function Filters() {
-  const {
-    name,
-    status,
-    gender,
-    species,
-    setName,
-    setStatus,
-    setGender,
-    setSpecies,
-    resetFilters,
-  } = useStore();
+export function Filters(): JSX.Element {
+  const { name, status, gender, species, setName, setStatus, setGender, setSpecies, resetFilters } =
+    useStore();
 
   return (
     <div className="bg-white p-4 rounded-lg shadow mb-6">
@@ -30,10 +21,7 @@ export function Filters() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Name Search Input */}
         <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
             Name
           </label>
           <input
@@ -48,10 +36,7 @@ export function Filters() {
 
         {/* Status Filter */}
         <div className="mb-4">
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
             Status
           </label>
           <select
@@ -69,10 +54,7 @@ export function Filters() {
 
         {/* Gender Filter */}
         <div className="mb-4">
-          <label
-            htmlFor="gender"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">
             Gender
           </label>
           <select
@@ -91,10 +73,7 @@ export function Filters() {
 
         {/* Species Filter */}
         <div className="mb-4">
-          <label
-            htmlFor="species"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="species" className="block text-sm font-medium text-gray-700 mb-1">
             Species
           </label>
           <select

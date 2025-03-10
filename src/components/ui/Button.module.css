@@ -1,0 +1,75 @@
+.button {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Variants */
+.primary {
+  background-color: #97ce4c; /* Rick and Morty green */
+  color: #fff;
+}
+
+.primary:hover:not(:disabled) {
+  background-color: #86b843;
+}
+
+.secondary {
+  background-color: #44281d; /* Rick and Morty brown */
+  color: #fff;
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: #33201a;
+}
+
+.outline {
+  background-color: transparent;
+  border: 2px solid #97ce4c;
+  color: #97ce4c;
+}
+
+.outline:hover:not(:disabled) {
+  background-color: rgba(151, 206, 76, 0.1);
+}
+
+.text {
+  background-color: transparent;
+  color: #97ce4c;
+  padding: 0;
+}
+
+.text:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+/* Sizes */
+.small {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.medium {
+  padding: 10px 16px;
+  font-size: 16px;
+}
+
+.large {
+  padding: 12px 20px;
+  font-size: 18px;
+}
+
+.fullWidth {
+  width: 100%;
+}
